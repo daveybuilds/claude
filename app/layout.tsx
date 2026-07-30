@@ -12,10 +12,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "MetricText — your numbers, texted to you every morning";
+const description =
+  "Revenue, jobs booked, and what your ad spend is actually bringing in — pulled from the tools you already use. Built for service owners who are never at a desk. No dashboards. Just a text.";
+
 export const metadata: Metadata = {
-  title: "Your numbers, texted to you every morning.",
-  description:
-    "Revenue, jobs booked, and what your ad spend is actually bringing in — pulled from the tools you already use. Built for service owners who are never at a desk.",
+  metadataBase: new URL("https://metrictext.com"),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: "/",
+    siteName: "MetricText",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export const viewport: Viewport = {
