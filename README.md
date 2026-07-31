@@ -50,7 +50,7 @@ After the first deploy, every push to that branch redeploys automatically.
 ## Build order
 
 - [x] **Step 1** — scaffold, running locally, deployable to Vercel
-- [ ] **Step 2** — hero + sample-text phone mockup
-- [ ] **Step 3** — problem / how it works / who it's for
+- [x] **Step 2** — hero + sample-text phone mockup
+- [x] **Step 3** — problem / how it works / who it's for
 - [ ] **Step 4** — waitlist form + signup storage
 - [ ] **Step 5** — polish, tighten copy, redeploy

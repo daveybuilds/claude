@@ -1,5 +1,20 @@
 import { PhoneMockup } from "./_components/phone-mockup";
 
+const STEPS = [
+  {
+    title: "Connect your tools",
+    body: "Link what you already run on — field service, payments, lead sources. A few minutes, once.",
+  },
+  {
+    title: "We pull your numbers",
+    body: "Every night we gather revenue, jobs booked, and what each lead source actually produced.",
+  },
+  {
+    title: "You get a text",
+    body: "On your schedule. 7am, end of day, Monday mornings — whenever you'll actually read it.",
+  },
+];
+
 export default function Home() {
   return (
     <>
@@ -46,6 +61,78 @@ export default function Home() {
           </div>
         </section>
 
+        {/* The problem, in words an owner will recognize as their own week */}
+        <section className="border-t border-slate-200 bg-slate-50 py-20 lg:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="max-w-2xl">
+              <h2 className="text-[1.75rem] font-semibold leading-tight tracking-[-0.015em] text-slate-900 sm:text-4xl">
+                Your numbers are scattered. You&rsquo;re not at a desk.
+              </h2>
+              <div className="mt-6 space-y-4 text-lg leading-relaxed text-slate-600">
+                <p>
+                  Jobs and revenue live in Housecall Pro or Jobber. Payments sit
+                  with your processor. What you&rsquo;re spending on leads is
+                  split between Google, Angi, and wherever else you buy. None of
+                  it talks to each other.
+                </p>
+                <p>
+                  So getting a straight answer to &ldquo;how did we do?&rdquo;
+                  means logging into four things at a desk you&rsquo;re never
+                  at. Which means most weeks, nobody checks.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="py-20 lg:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <h2 className="text-[1.75rem] font-semibold leading-tight tracking-[-0.015em] text-slate-900 sm:text-4xl">
+              How it works
+            </h2>
+            <ol className="mt-10 grid gap-10 sm:grid-cols-3 sm:gap-8">
+              {STEPS.map((step, i) => (
+                <li key={step.title}>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/10 text-sm font-semibold text-accent">
+                    {i + 1}
+                  </span>
+                  <h3 className="mt-4 text-lg font-semibold text-slate-900">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-base leading-relaxed text-slate-600">
+                    {step.body}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* Who it's for */}
+        <section className="bg-slate-900 py-20 lg:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="max-w-2xl">
+              <h2 className="text-[1.75rem] font-semibold leading-tight tracking-[-0.015em] text-white sm:text-4xl">
+                Built for owners who run the business from the truck.
+              </h2>
+              <div className="mt-6 space-y-4 text-lg leading-relaxed text-slate-300">
+                <p>
+                  Home-service and trades companies with 1 to 20 techs &mdash;
+                  HVAC, plumbing, electrical, landscaping, cleaning. If you run
+                  on a field-service app, take card payments, and buy leads,
+                  this fits.
+                </p>
+                <p className="text-base text-slate-400">
+                  Our examples use HVAC numbers because specifics are more
+                  useful than vague ones. The pitch is the same whatever you
+                  run.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Placeholder — the real waitlist form replaces this in step 4 */}
         <section
           id="waitlist"
@@ -61,6 +148,18 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <footer className="border-t border-slate-200 py-10">
+        <div className="mx-auto max-w-6xl px-6 space-y-3 text-sm leading-relaxed text-slate-500 [&>*]:max-w-2xl">
+          <p>
+            <span className="font-semibold text-slate-900">MetricText</span>{" "}
+            is early. We&rsquo;re talking to service-business owners now to
+            figure out what belongs in that morning text and what doesn&rsquo;t.
+            If you&rsquo;ve got opinions, we want to hear them.
+          </p>
+          <p>&copy; {new Date().getFullYear()} MetricText</p>
+        </div>
+      </footer>
     </>
   );
 }
