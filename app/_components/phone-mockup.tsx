@@ -55,57 +55,58 @@ function BatteryIcon() {
 
 export function PhoneMockup() {
   return (
-    <div className="mx-auto w-full max-w-[330px]">
-      {/* Device bezel */}
-      <div className="rounded-[2.75rem] bg-slate-900 p-[10px] shadow-2xl shadow-slate-900/25">
-        <div className="relative overflow-hidden rounded-[2.25rem] bg-white">
+    <div className="mx-auto w-full max-w-[330px] lg:max-w-[360px]">
+      {/* Device bezel — dark shell with a thin bright outer edge */}
+      <div className="rounded-[2.9rem] bg-ink p-[11px] shadow-[0_32px_70px_-24px_rgba(18,18,20,0.45)] ring-1 ring-white/60">
+        <div className="relative overflow-hidden rounded-[2.3rem] bg-white">
           {/* Dynamic island */}
-          <div className="absolute left-1/2 top-2.5 z-10 h-[24px] w-[88px] -translate-x-1/2 rounded-full bg-slate-900" />
+          <div className="absolute left-1/2 top-2.5 z-10 h-[23px] w-[82px] -translate-x-1/2 rounded-full bg-ink" />
 
-          {/* Status bar */}
-          <div className="flex items-center justify-between px-6 pb-1 pt-4 text-slate-900">
-            <span className="text-[12px] font-semibold tabular-nums">7:02</span>
-            <span className="flex items-center gap-[5px]">
-              <SignalIcon />
-              <WifiIcon />
-              <BatteryIcon />
-            </span>
-          </div>
+          {/* Cream zone: status bar + conversation header */}
+          <div className="bg-cream pb-4">
+            <div className="flex items-center justify-between px-5 pb-1 pt-4 text-ink">
+              <span className="text-[12px] font-bold tabular-nums">7:02</span>
+              <span className="flex items-center gap-[5px]">
+                <SignalIcon />
+                <WifiIcon />
+                <BatteryIcon />
+              </span>
+            </div>
 
-          {/* Conversation header */}
-          <div className="flex flex-col items-center gap-1.5 border-b border-slate-200 px-4 pb-3 pt-3">
-            <span
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-[15px] font-semibold text-white"
-              aria-hidden="true"
-            >
-              M
-            </span>
-            <span className="text-[11px] font-medium text-slate-600">MetricText</span>
+            <div className="flex flex-col items-center gap-1.5 pt-3">
+              <span
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-[15px] font-bold text-white"
+                aria-hidden="true"
+              >
+                M
+              </span>
+              <span className="text-[11px] font-semibold text-ink">MetricText</span>
+            </div>
           </div>
 
           {/* Message thread */}
           <div className="px-3.5 pb-5 pt-4">
-            <p className="pb-2.5 text-center text-[10px] font-medium uppercase tracking-wide text-slate-400">
+            <p className="pb-2.5 text-center text-[10px] font-semibold uppercase tracking-wide text-ink-faint">
               Today 7:02 AM
             </p>
-            <div className="max-w-[87%] rounded-[1.15rem] rounded-bl-md bg-slate-100 px-3.5 py-2.5">
-              <p className="text-[14.5px] leading-[1.45] text-slate-800">{DIGEST}</p>
+            <div className="max-w-[88%] rounded-[1.3rem] rounded-bl-md bg-cream-soft px-3.5 py-3">
+              <p className="text-[14.5px] leading-[1.45] text-ink">{DIGEST}</p>
             </div>
           </div>
 
           {/* Message input — sells the illusion that this is a real thread */}
           <div className="flex items-center gap-2 px-3.5 pb-2" aria-hidden="true">
-            <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full bg-slate-100 text-[15px] leading-none text-slate-400">
+            <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full bg-panel text-[15px] leading-none text-ink-faint">
               +
             </span>
-            <span className="flex flex-1 items-center rounded-full border border-slate-200 py-[5px] pl-3 pr-1.5 text-[12px] text-slate-400">
+            <span className="flex flex-1 items-center rounded-full border border-hairline py-[6px] pl-3 pr-1.5 text-[12px] text-ink-faint">
               Text Message
             </span>
           </div>
 
           {/* Home indicator */}
           <div className="flex justify-center pb-2 pt-1" aria-hidden="true">
-            <span className="h-[4px] w-[100px] rounded-full bg-slate-900/80" />
+            <span className="h-[4px] w-[100px] rounded-full bg-ink/80" />
           </div>
         </div>
       </div>
