@@ -29,7 +29,8 @@ export default function Home() {
         <section className="mx-auto w-full max-w-6xl px-6 pb-20 pt-10 sm:pt-14 lg:grid lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16 lg:pb-28 lg:pt-16">
           <div>
             <h1 className="text-[2.15rem] font-semibold leading-[1.08] tracking-[-0.02em] text-slate-900 sm:text-5xl lg:text-[3.35rem]">
-              Your numbers, texted to you every morning.
+              Your numbers, simplified and texted to your phone while
+              you&rsquo;re on the go.
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-slate-600 sm:text-xl">
               Revenue, jobs booked, and what your ad spend is actually bringing

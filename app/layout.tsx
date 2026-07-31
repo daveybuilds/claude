@@ -12,7 +12,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = "MetricText — your numbers, texted to you every morning";
+const title =
+  "MetricText — your numbers, simplified and texted to your phone";
 const description =
   "Revenue, jobs booked, and what your ad spend is actually bringing in — pulled from the tools you already use. Built for service owners who are never at a desk. No dashboards. Just a text.";
 
