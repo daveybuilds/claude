@@ -65,16 +65,16 @@ export function createMemoryDB(opts: { seed?: boolean } = {}): MemoryDB {
     });
   }
   for (const seed of SEED_LISTINGS) {
-    const { source_slug, last_verified_at, provider, ...fields } = seed;
+    const { source_slug, last_verified_at, provider, status, review_note, ...fields } = seed;
     db.listings.push({
       ...fields,
       id: randomUUID(),
       source_id: sourceIds.get(source_slug) ?? null,
       provider,
       dedupe_key: seedDedupeKey(seed),
-      status: "approved",
+      status: status ?? "approved",
       pending_changes: null,
-      review_note: null,
+      review_note: review_note ?? null,
       last_verified_at,
       last_seen_at: last_verified_at,
       missing_since: null,

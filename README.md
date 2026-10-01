@@ -270,6 +270,29 @@ switch to “Check times” after 14 days unless a collector or you re-verify th
   Kinspace Mama + Babe, Natural Resources, Community Well, Outer Village, Music
   Together's other locations
 
+### SF Public Library branches (added Oct 1, 2026)
+
+15 more SFPL branches are set up as sources, one per branch, so each runs its
+own nightly check. Twelve storytimes found on their branch pages (via web
+search) are waiting in **Admin → Review** as *pending*: confirm each one on
+sfpl.org, then approve. Five branches where only older schedules turned up
+(Bernal Heights, Ortega, Sunset, Potrero, Mission) appear with “Check times”.
+
+| Neighborhood | Branch | Found |
+| --- | --- | --- |
+| Laurel & Presidio Heights | Presidio | Babies, Thu 10:15–10:45 |
+| Cow Hollow | Golden Gate Valley | Families, Fri 1:15–1:45pm |
+| Richmond | Richmond | Babies, Mon 11:00–12:00 |
+| Sunset | Parkside | Babies, Thu 10:30–11:15 |
+| Haight & Cole Valley | Park | Babies, Sat 11:00–12:00 |
+| Western Addition | Western Addition | Families Mon 10:15; Toddlers Tue 11:00; Babies Tue 11:45 |
+| North Beach | North Beach | Babies (English & Español), Tue 10:15–10:45 |
+| Noe Valley & Castro | Noe Valley; Eureka Valley | Babies Thu 10:15–10:45; Babies Wed 11:00–11:30 |
+| SoMa & Mission Bay | Mission Bay | Babies, Thu 10:30–11:15 |
+
+Each SFPL branch is its own *provider* (e.g. “SFPL Presidio”), because
+different branches run identically named storytimes at the same time.
+
 ### Starting sources: what still needs a human look
 
 The build environment couldn't reach these websites, so each method below is a

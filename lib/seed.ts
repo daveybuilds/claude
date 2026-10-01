@@ -2,10 +2,29 @@
 // in-memory preview store. Listings here stay until the collectors verify
 // fresher data; their "last verified" date is the day they were checked by hand.
 
-import { dedupeKey } from "./pipeline/normalize";
+import { dedupeKey, parseAges } from "./pipeline/normalize";
 import type { ListingFields, Source } from "./types";
 
 export const SEED_VERIFIED_AT = "2026-10-01T17:00:00.000Z"; // Oct 1, 2026, 10am in SF
+
+// [url slug, branch name, our neighborhood]
+const SFPL_BRANCHES = [
+  ["presidio", "Presidio", "laurel-heights"],
+  ["golden-gate-valley", "Golden Gate Valley", "cow-hollow"],
+  ["richmond", "Richmond", "richmond"],
+  ["parkside", "Parkside", "sunset"],
+  ["ortega", "Ortega", "sunset"],
+  ["sunset", "Sunset", "sunset"],
+  ["park", "Park", "haight"],
+  ["western-addition", "Western Addition", "western-addition"],
+  ["north-beach", "North Beach", "russian-hill"],
+  ["noe-valley", "Noe Valley", "noe-valley"],
+  ["eureka-valley", "Eureka Valley", "noe-valley"],
+  ["mission", "Mission", "mission"],
+  ["mission-bay", "Mission Bay", "soma"],
+  ["bernal-heights", "Bernal Heights", "bernal-heights"],
+  ["potrero", "Potrero", "potrero-hill"],
+] as const;
 
 type SeedSource = Omit<
   Source,
@@ -16,7 +35,7 @@ export const SEED_SOURCES: SeedSource[] = [
   {
     slug: "sfpl-marina",
     name: "SF Public Library — Marina Branch",
-    provider: "SFPL",
+    provider: "SFPL Marina",
     url: "https://sfpl.org/locations/marina",
     neighborhood: "marina",
     method: "html",
@@ -30,7 +49,7 @@ export const SEED_SOURCES: SeedSource[] = [
   {
     slug: "sfpl-anza",
     name: "SF Public Library — Anza Branch",
-    provider: "SFPL",
+    provider: "SFPL Anza",
     url: "https://sfpl.org/locations/anza",
     neighborhood: "richmond",
     method: "html",
@@ -40,6 +59,20 @@ export const SEED_SOURCES: SeedSource[] = [
     options: { keywords: ["storytime", "baby", "babies", "toddler", "family", "families"] },
     parser_notes: "Same layout as the Marina branch page. See sfpl-marina notes about an ICS feed.",
   },
+  // More SF Public Library branches, one source each (same page layout as Marina).
+  ...SFPL_BRANCHES.map(([slug, branch, neighborhood]) => ({
+    slug: `sfpl-${slug}`,
+    name: `SF Public Library — ${branch} Branch`,
+    provider: `SFPL ${branch}`,
+    url: `https://sfpl.org/locations/${slug}`,
+    neighborhood,
+    method: "html" as const,
+    trusted: false,
+    active: true,
+    check_frequency: "daily" as const,
+    options: { keywords: ["storytime", "baby", "babies", "toddler", "family", "families"] },
+    parser_notes: "Branch page lists upcoming events. Same layout as the Marina branch.",
+  })),
   {
     slug: "sf-music-together",
     name: "SF Music Together",
@@ -176,7 +209,14 @@ export const SEED_SOURCES: SeedSource[] = [
   },
 ];
 
-type SeedListing = ListingFields & { source_slug: string; provider: string; last_verified_at: string | null };
+type SeedListing = ListingFields & {
+  source_slug: string;
+  provider: string;
+  last_verified_at: string | null;
+  /** Defaults to approved. Pending ones wait in the admin review queue. */
+  status?: "approved" | "pending";
+  review_note?: string | null;
+};
 
 const base: Omit<ListingFields, "name"> = {
   type: null,
@@ -204,7 +244,7 @@ export const SEED_LISTINGS: SeedListing[] = [
   {
     ...base,
     source_slug: "sfpl-marina",
-    provider: "SFPL",
+    provider: "SFPL Marina",
     name: "Family Storytime",
     type: "storytime",
     day_of_week: 2,
@@ -225,7 +265,7 @@ export const SEED_LISTINGS: SeedListing[] = [
   {
     ...base,
     source_slug: "sfpl-marina",
-    provider: "SFPL",
+    provider: "SFPL Marina",
     name: "Preschool Storytime",
     type: "storytime",
     day_of_week: 5,
@@ -295,7 +335,7 @@ export const SEED_LISTINGS: SeedListing[] = [
   {
     ...base,
     source_slug: "sfpl-anza",
-    provider: "SFPL",
+    provider: "SFPL Anza",
     name: "Storytime for Babies",
     type: "storytime",
     day_of_week: 6,
@@ -337,6 +377,77 @@ export const SEED_LISTINGS: SeedListing[] = [
     description,
     is_free: source_slug === "kinspace-mama-babe" ? false : null,
     price: source_slug === "kinspace-mama-babe" ? "Paid" : null,
+    last_verified_at: null,
+  })),
+  // Found on sfpl.org branch pages via web search on Oct 1, 2026. Waiting in the
+  // review queue: confirm each on sfpl.org, then approve.
+  ...(
+    [
+      ["presidio", "Presidio", "Storytime for Babies", 4, "10:15", "10:45", "3150 Sacramento St", "laurel-heights", "Babies"],
+      ["noe-valley", "Noe Valley", "Storytime for Babies", 4, "10:15", "10:45", "451 Jersey St", "noe-valley", "Babies"],
+      ["parkside", "Parkside", "Storytime for Babies", 4, "10:30", "11:15", null, "sunset", "Babies"],
+      ["mission-bay", "Mission Bay", "Storytime for Babies", 4, "10:30", "11:15", null, "soma", "Babies"],
+      ["park", "Park", "Storytime for Babies", 6, "11:00", "12:00", "1833 Page St", "haight", "Babies"],
+      ["richmond", "Richmond", "Storytime for Babies", 1, "11:00", "12:00", null, "richmond", "Babies"],
+      ["north-beach", "North Beach", "Storytime for Babies (English & Español)", 2, "10:15", "10:45", "850 Columbus Ave", "russian-hill", "Babies"],
+      ["golden-gate-valley", "Golden Gate Valley", "Storytime for Families", 5, "13:15", "13:45", "1801 Green St", "cow-hollow", "Babies, toddlers and preschoolers"],
+      ["western-addition", "Western Addition", "Storytime for Families", 1, "10:15", "10:45", "1550 Scott St", "western-addition", "Babies, toddlers and preschoolers"],
+      ["western-addition", "Western Addition", "Storytime for Toddlers", 2, "11:00", "11:30", "1550 Scott St", "western-addition", "16 months to 2 years"],
+      ["western-addition", "Western Addition", "Storytime for Babies", 2, "11:45", "12:15", "1550 Scott St", "western-addition", "Babies"],
+      ["eureka-valley", "Eureka Valley", "Storytime for Babies", 3, "11:00", "11:30", "1 Jose Sarria Ct", "noe-valley", "Babies"],
+    ] as const
+  ).map(([slug, branch, name, day, start, end, address, neighborhood, ages]) => {
+    const parsed = parseAges(ages);
+    return {
+      ...base,
+      source_slug: `sfpl-${slug}`,
+      provider: `SFPL ${branch}`,
+      name,
+      type: "storytime" as const,
+      day_of_week: day,
+      start_time: start,
+      end_time: end,
+      location_name: `${branch} Branch Library`,
+      address,
+      neighborhood,
+      ages_text: ages,
+      age_min_months: parsed.min,
+      age_max_months: parsed.max,
+      is_free: true,
+      price: "Free",
+      description: name.startsWith("Storytime for Babies")
+        ? "Songs, rhymes and board books for babies and their grown-ups at the library."
+        : name.startsWith("Storytime for Toddlers")
+          ? "Books, songs and movement for toddlers and their grown-ups at the library."
+          : "Stories and songs for little ones and their grown-ups at the library.",
+      url: `https://sfpl.org/locations/${slug}`,
+      last_verified_at: null,
+      status: "pending" as const,
+      review_note: "Found on sfpl.org via web search, Oct 1 2026. Confirm the day and time on the branch page, then approve.",
+    };
+  }),
+  // Branches where we only found older schedules: shown with "Check times".
+  ...(
+    [
+      ["bernal-heights", "Bernal Heights", "500 Cortland Ave", "bernal-heights"],
+      ["ortega", "Ortega", "3223 Ortega St", "sunset"],
+      ["sunset", "Sunset", "1305 18th Ave", "sunset"],
+      ["potrero", "Potrero", "1616 20th St", "potrero-hill"],
+      ["mission", "Mission", null, "mission"],
+    ] as const
+  ).map(([slug, branch, address, neighborhood]) => ({
+    ...base,
+    source_slug: `sfpl-${slug}`,
+    provider: `SFPL ${branch}`,
+    name: `${branch} library storytimes`,
+    type: "storytime" as const,
+    location_name: `${branch} Branch Library`,
+    address,
+    neighborhood,
+    is_free: true,
+    price: "Free",
+    description: "Free weekly storytimes for babies, toddlers and families. Check the branch page for this week's times.",
+    url: `https://sfpl.org/locations/${slug}`,
     last_verified_at: null,
   })),
 ];

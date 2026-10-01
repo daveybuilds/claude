@@ -37,7 +37,8 @@ async function main() {
     ...l,
     source_id: idBySlug.get(source_slug) ?? null,
     dedupe_key: seedDedupeKey({ source_slug, ...l }),
-    status: "approved",
+    status: l.status ?? "approved",
+    review_note: l.review_note ?? null,
     last_seen_at: l.last_verified_at,
   }));
   const r = await sb.from("listings").upsert(rows, { onConflict: "dedupe_key", ignoreDuplicates: true });

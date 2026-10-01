@@ -43,7 +43,9 @@ describe("freshness", () => {
 });
 
 describe("filters", () => {
-  const list = toPublic(SEED_LISTINGS.map((l, i) => ({ ...l, id: String(i) })), at("2026-10-02T17:00:00Z"));
+  // Only approved listings are ever public.
+  const approved = SEED_LISTINGS.filter((l) => (l.status ?? "approved") === "approved");
+  const list = toPublic(approved.map((l, i) => ({ ...l, id: String(i) })), at("2026-10-02T17:00:00Z"));
   it("filters by neighborhood, age, type, price and week", () => {
     expect(filterListings(list, { hood: "richmond" }).map((l) => l.name)).toEqual(["Storytime for Babies"]);
     expect(filterListings(list, { type: "yoga" }).map((l) => l.name)).toEqual(["Baby & Me Yoga"]);
@@ -128,5 +130,21 @@ describe("polite fetcher", () => {
     await expect(missing.fetcher.getText("https://a.example/page")).resolves.toBe("hi");
     const down = fixtureFetcher({ "https://b.example/robots.txt": { status: 503 }, "https://b.example/page": "hi" });
     await expect(down.fetcher.getText("https://b.example/page")).rejects.toThrow(/robots/);
+  });
+});
+
+describe("seed data", () => {
+  it("never gives two listings the same de-duplication key", async () => {
+    const { SEED_LISTINGS, SEED_SOURCES, seedDedupeKey } = await import("@/lib/seed");
+    const keys = SEED_LISTINGS.map(seedDedupeKey);
+    expect(new Set(keys).size).toBe(keys.length);
+    const slugs = new Set(SEED_SOURCES.map((s) => s.slug));
+    for (const l of SEED_LISTINGS) expect(slugs.has(l.source_slug)).toBe(true);
+  });
+  it("sends researched listings to the review queue, unverified", async () => {
+    const { SEED_LISTINGS } = await import("@/lib/seed");
+    const pending = SEED_LISTINGS.filter((l) => l.status === "pending");
+    expect(pending).toHaveLength(12);
+    expect(pending.every((l) => l.last_verified_at === null && l.review_note)).toBe(true);
   });
 });
