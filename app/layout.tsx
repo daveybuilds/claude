@@ -1,48 +1,53 @@
 import type { Metadata, Viewport } from "next";
-import { Figtree } from "next/font/google";
+import { Fraunces, Nunito } from "next/font/google";
+import { env } from "@/lib/env";
 import "./globals.css";
 
-const figtree = Figtree({
-  variable: "--font-figtree",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
+  axes: ["opsz", "SOFT"],
+  display: "swap",
 });
 
-const title =
-  "MetricText — the numbers you need to run your business, texted to your phone";
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const title = "Little SF — baby classes in San Francisco, and moms who'll say hi";
 const description =
-  "Revenue, jobs booked, and what your ad spend is actually bringing in — pulled from the tools you already use. Built for service owners who are never at a desk. No dashboards. Just a text.";
+  "Find baby-friendly classes across San Francisco this week, and quietly let other new moms know you'll say hi at the door afterwards.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://metrictext.com"),
-  title,
+  metadataBase: new URL(env.siteUrl),
+  title: { default: title, template: "%s · Little SF" },
   description,
-  openGraph: {
-    title,
-    description,
-    url: "/",
-    siteName: "MetricText",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-  },
+  openGraph: { title, description, url: "/", siteName: "Little SF", type: "website" },
+  twitter: { card: "summary", title, description },
+  appleWebApp: { title: "Little SF", statusBarStyle: "default" },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbf7f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#1d191c" },
+  ],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${figtree.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-white text-ink">
+    <html lang="en" className={`${fraunces.variable} ${nunito.variable} antialiased`}>
+      <body className="flex min-h-dvh flex-col">
+        <a
+          href="#main"
+          className="sr-only rounded-full bg-button px-4 py-2 font-bold text-button-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50"
+        >
+          Skip to content
+        </a>
         {children}
       </body>
     </html>

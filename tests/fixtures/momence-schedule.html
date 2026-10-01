@@ -1,0 +1,23 @@
+<!doctype html>
+<html><head><title>Schedule</title></head>
+<body>
+<h1>Studio schedule</h1>
+<div id="schedule">Loading…</div>
+<script>
+  // Mimics a JavaScript booking widget: the schedule only exists after JS runs.
+  setTimeout(function () {
+    var rows = [
+      ["Mom & Baby Barre", "Tuesday", "9:15am - 10:00am", "$28 drop-in"],
+      ["Postnatal Pilates (babies welcome)", "Thursday", "11:00am - 11:45am", "$28 drop-in"]
+    ];
+    var el = document.getElementById("schedule");
+    el.innerHTML = "";
+    rows.forEach(function (r) {
+      var d = document.createElement("div");
+      d.className = "class-row";
+      d.textContent = r.join(" | ");
+      el.appendChild(d);
+    });
+  }, 200);
+</script>
+</body></html>

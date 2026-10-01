@@ -1,0 +1,61 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sample Library//Events//EN
+X-WR-CALNAME:Marina Branch Events
+BEGIN:VEVENT
+UID:storytime-1@sample
+DTSTART;TZID=America/Los_Angeles:20261006T103000
+DTEND;TZID=America/Los_Angeles:20261006T110000
+SUMMARY:Storytime for Families
+LOCATION:Marina Branch Library
+CATEGORIES:Babies,Toddlers,Families
+DESCRIPTION:Join us for stories\, songs and rhymes. Free.
+URL:https://sfpl.example/events/storytime-1
+END:VEVENT
+BEGIN:VEVENT
+UID:storytime-2@sample
+DTSTART;TZID=America/Los_Angeles:20261013T103000
+DTEND;TZID=America/Los_Angeles:20261013T110000
+SUMMARY:Storytime for Families
+LOCATION:Marina Branch Library
+CATEGORIES:Babies,Toddlers,Families
+DESCRIPTION:Join us for stories\, songs and rhymes. Free.
+END:VEVENT
+BEGIN:VEVENT
+UID:baby-rhyme@sample
+DTSTART:20261008T180000Z
+DTEND:20261008T183000Z
+SUMMARY:Baby Rhyme Time
+LOCATION:Anza Branch Library
+CATEGORIES:Babies
+DESCRIPTION:Bounces and lap rhymes for babies 0-18 months.
+END:VEVENT
+BEGIN:VEVENT
+UID:weekly-music@sample
+DTSTART;TZID=America/Los_Angeles:20261002T093000
+DTEND;TZID=America/Los_Angeles:20261002T101500
+RRULE:FREQ=WEEKLY;UNTIL=20261218T235959Z
+SUMMARY:Toddler Music & Movement
+LOCATION:Marina Branch Library
+CATEGORIES:Toddlers
+END:VEVENT
+BEGIN:VEVENT
+UID:adult-book-club@sample
+DTSTART;TZID=America/Los_Angeles:20261007T190000
+SUMMARY:Mystery Book Club
+CATEGORIES:Adults
+END:VEVENT
+BEGIN:VEVENT
+UID:old@sample
+DTSTART;TZID=America/Los_Angeles:20260901T103000
+SUMMARY:Storytime for Families (past)
+CATEGORIES:Families
+END:VEVENT
+BEGIN:VEVENT
+UID:cancelled@sample
+DTSTART;TZID=America/Los_Angeles:20261009T103000
+SUMMARY:Cancelled Baby Storytime
+CATEGORIES:Babies
+STATUS:CANCELLED
+END:VEVENT
+END:VCALENDAR

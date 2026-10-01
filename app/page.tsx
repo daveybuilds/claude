@@ -1,195 +1,207 @@
-import { PhoneMockup } from "./_components/phone-mockup";
-import { DigestContentsCard, LeadSourceCard } from "./_components/floating-cards";
+import Link from "next/link";
+import { PreviewBanner, SiteFooter, SiteHeader } from "@/components/chrome";
+import { FridaySignup } from "@/components/friday-signup";
+import { PhotoSlot } from "@/components/photo-slot";
+import { ShareButton } from "@/components/share-button";
+import { NEIGHBORHOODS } from "@/lib/constants";
+import { isSupabaseConfigured } from "@/lib/env";
 
 const STEPS = [
   {
-    title: "Connect your tools",
-    body: "Link what you already run on — field service, payments, lead sources. A few minutes, once.",
-    tone: "bg-periwinkle",
+    title: "Pick your corner and baby's age",
+    body: "Story time, music, baby yoga and new-mom groups, from the Marina to the Sunset. Filter by newborn, 6–12 months or 1–2 years.",
+    tone: "bg-rose-soft text-rose-ink",
   },
   {
-    title: "We pull your numbers",
-    body: "Every night we gather revenue, jobs booked, and what each lead source actually produced.",
-    tone: "bg-butter",
+    title: "Tap “I'll say hi”",
+    body: "It's a quiet signal: you'll see how many other moms are going too. Add your first name if you like, or stay anonymous.",
+    tone: "bg-lavender-soft text-lavender-ink",
   },
   {
-    title: "You get a text",
-    body: "On your schedule. 7am, end of day, Monday mornings — whenever you'll actually read it.",
-    tone: "bg-mint",
+    title: "Say hello at the door after",
+    body: "Moms who tap meet by the entrance when class ends. A quick hello, no plans needed. Stay for a chat, or don't.",
+    tone: "bg-sage-soft text-sage-ink",
   },
 ];
+
+const SOON = [
+  { title: "Coffee after", body: "An easy coffee nearby with moms whose babies are the same age." },
+  { title: "Mom-friendly places", body: "Cafés with room for strollers, changing tables and a kind welcome." },
+  { title: "The Friday email", body: "This weekend's picks for your neighborhood and your baby's age." },
+];
+
+function ExampleCard({
+  className,
+  type,
+  tone,
+  title,
+  when,
+  count,
+  faces,
+}: {
+  className: string;
+  type: string;
+  tone: string;
+  title: string;
+  when: string;
+  count: string;
+  faces: string[];
+}) {
+  return (
+    <div className={`w-[17.5rem] rounded-[1.6rem] border border-line bg-surface p-4 shadow-lift ${className}`}>
+      <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${tone}`}>{type}</span>
+      <p className="mt-2.5 font-display text-lg font-semibold leading-snug">{title}</p>
+      <p className="text-sm text-ink-soft">{when}</p>
+      <div className="mt-3 flex items-center gap-2">
+        <div className="flex -space-x-2">
+          {faces.map((c, i) => (
+            <span key={i} className="h-7 w-7 rounded-full border-2 border-surface" style={{ background: c }} />
+          ))}
+        </div>
+        <p className="text-sm font-bold text-rose-ink">{count}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <>
-      <header className="mx-auto w-full max-w-6xl px-6 pt-8 sm:pt-10">
-        <span className="text-[17px] font-extrabold tracking-tight text-ink">
-          MetricText
-        </span>
-      </header>
+      <SiteHeader />
+      {!isSupabaseConfigured() && <PreviewBanner />}
+      <main id="main" className="flex-1">
+        {/* Hero */}
+        <section className="relative mx-auto w-full max-w-6xl overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pt-16 lg:overflow-visible">
+          <svg aria-hidden="true" viewBox="0 0 600 600" className="pointer-events-none absolute -right-40 -top-24 -z-10 w-[36rem] opacity-80 sm:-right-24">
+            <path d="M421 79c68 44 120 129 108 211s-91 162-180 186-187-8-246-72S16 237 58 161 205 49 284 39s69-4 137 40Z" fill="var(--rose-soft)" />
+          </svg>
+          <svg aria-hidden="true" viewBox="0 0 600 600" className="pointer-events-none absolute -bottom-48 -left-48 -z-10 w-[28rem] opacity-80">
+            <path d="M432 108c56 52 92 132 70 205s-102 140-187 150-174-38-205-108 6-163 70-218 196-81 252-29Z" fill="var(--lavender-soft)" />
+          </svg>
 
-      <main className="flex-1">
-        {/* Hero — headline left, supporting line right, phone on a soft panel */}
-        <section className="mx-auto w-full max-w-6xl px-6 pb-16 pt-8 sm:pt-12">
-          <div className="lg:flex lg:items-start lg:justify-between lg:gap-14">
-            <h1 className="max-w-3xl text-[2.15rem] font-extrabold leading-[1.58] tracking-[-0.025em] text-ink sm:text-[2.7rem] sm:leading-[1.5] lg:text-[3.05rem] lg:leading-[1.42]">
-              The numbers you need to run your business &mdash;{" "}
-              <span className="box-decoration-clone rounded-2xl bg-ink px-3 py-0.5 text-white sm:px-3.5 sm:py-1">
-                texted to your phone
-              </span>{" "}
-              while you&rsquo;re on the go.
-            </h1>
-            <p className="mt-6 max-w-sm text-base leading-relaxed text-ink-soft lg:mt-4 lg:shrink-0">
-              Revenue, jobs booked, and what your ad spend is actually bringing
-              in — pulled from the tools you already use. Built for service
-              owners who are never at a desk.
-            </p>
-          </div>
-
-          <p className="mt-8 max-w-md text-xl font-bold leading-snug text-ink sm:text-2xl">
-            No dashboards. Just a text.
-          </p>
-
-          <div className="mt-8">
-            <a
-              href="#waitlist"
-              className="inline-flex w-full items-center justify-center rounded-2xl bg-ink px-8 py-4 text-base font-bold text-white transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:w-auto"
-            >
-              Join the waitlist
-            </a>
-            <p className="mt-4 text-sm text-ink-faint">
-              Free while we&rsquo;re building. No spam, no sales calls.
-            </p>
-          </div>
-
-          {/* The sample text, staged on a panel with the two cards flanking it */}
-          <div className="relative mt-12 rounded-[2.25rem] bg-panel px-4 py-12 sm:px-6 lg:mt-16 lg:px-10 lg:py-20">
-            <PhoneMockup />
-
-            {/* On large screens the cards float over the panel, as in the
-                reference; below that they stack underneath the phone. */}
-            <div className="mt-8 flex flex-col items-center gap-6 sm:flex-row sm:items-start sm:justify-center lg:hidden">
-              <DigestContentsCard />
-              <LeadSourceCard />
-            </div>
-
-            <div className="pointer-events-none hidden lg:block">
-              <div className="absolute left-8 top-1/2 -translate-y-1/2 -rotate-[4deg] xl:left-14">
-                <DigestContentsCard />
-              </div>
-              <div className="absolute right-8 top-1/2 -translate-y-[35%] rotate-[3deg] xl:right-14">
-                <LeadSourceCard />
+          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <p className="text-sm font-extrabold uppercase tracking-wider text-rose-ink">For new moms in San Francisco</p>
+              <h1 className="mt-4 text-[2.6rem] font-semibold leading-[1.08] tracking-[-0.01em] sm:text-6xl lg:text-[4.1rem]">
+                You're not the only one at the{" "}
+                <span className="italic text-rose-ink [font-variation-settings:'SOFT'_100]">10am class.</span>
+              </h1>
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink-soft">
+                Find baby-friendly classes near you, and quietly let other moms know you'll say hi at the door afterwards.
+                No profiles, no group chats, no awkward approaching strangers.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/classes?when=week"
+                  className="inline-flex min-h-13 items-center justify-center rounded-full bg-button px-7 text-base font-extrabold text-button-ink shadow-soft transition-opacity hover:opacity-90"
+                >
+                  Find something this week
+                </Link>
+                <ShareButton className="inline-flex min-h-13 items-center justify-center rounded-full border-2 border-rose bg-surface px-7 text-base font-extrabold text-rose-ink hover:bg-rose-soft" />
               </div>
             </div>
-          </div>
 
-          <p className="mt-6 text-center text-sm text-ink-faint">
-            One text every morning. That&rsquo;s the whole thing.
-          </p>
-        </section>
-
-        {/* The problem, in words an owner will recognize as their own week */}
-        <section className="py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="max-w-2xl">
-              <h2 className="text-[1.85rem] font-extrabold leading-[1.15] tracking-[-0.02em] text-ink sm:text-4xl">
-                Your numbers are scattered. You&rsquo;re not at a desk.
-              </h2>
-              <div className="mt-6 space-y-4 text-lg leading-relaxed text-ink-soft">
-                <p>
-                  Jobs and revenue live in Housecall Pro or Jobber. Payments sit
-                  with your processor. What you&rsquo;re spending on leads is
-                  split between Google, Angi, and wherever else you buy. None of
-                  it talks to each other.
-                </p>
-                <p>
-                  So getting a straight answer to &ldquo;how did we do?&rdquo;
-                  means logging into four things at a desk you&rsquo;re never
-                  at. Which means most weeks, nobody checks.
-                </p>
-              </div>
+            <div className="relative mx-auto h-[23rem] w-full max-w-[26rem] sm:h-[26rem]">
+              <PhotoSlot slot="hero" priority className="absolute inset-x-6 inset-y-4 sm:inset-x-10" />
+              <ExampleCard
+                className="float absolute left-0 top-2 [--tilt:-3deg]"
+                type="Story time"
+                tone="bg-rose-soft text-rose-ink"
+                title="Tuesday storytime"
+                when="Marina Library · 10:30am"
+                count="3 moms are saying hi"
+                faces={["var(--rose)", "var(--lavender)", "var(--sage)"]}
+              />
+              <ExampleCard
+                className="float float-delay absolute bottom-2 right-0 [--tilt:2.5deg]"
+                type="Yoga"
+                tone="bg-sage-soft text-sage-ink"
+                title="Baby & Me Yoga"
+                when="Wednesday · 10am"
+                count="Ana and 4 others"
+                faces={["var(--lavender)", "var(--sage)", "var(--rose)", "var(--lavender)"]}
+              />
             </div>
           </div>
         </section>
 
-        {/* How it works — pastel tiles, echoing the reference's action grid */}
-        <section className="pb-16 lg:pb-24">
-          <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-[1.85rem] font-extrabold leading-[1.15] tracking-[-0.02em] text-ink sm:text-4xl">
+        {/* How it works */}
+        <section id="how" aria-labelledby="how-title" className="scroll-mt-8 bg-surface py-16 sm:py-20">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+            <h2 id="how-title" className="text-3xl font-semibold sm:text-4xl">
               How it works
             </h2>
-            <ol className="mt-8 grid gap-4 sm:grid-cols-3">
-              {STEPS.map((step, i) => (
-                <li
-                  key={step.title}
-                  className={`rounded-[1.75rem] ${step.tone} p-6`}
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[13px] font-bold text-white">
+            <ol className="mt-10 grid gap-5 md:grid-cols-3">
+              {STEPS.map((s, i) => (
+                <li key={s.title} className="rounded-[var(--radius-card)] border border-line bg-bg p-6">
+                  <span className={`grid h-11 w-11 place-items-center rounded-full font-display text-xl font-semibold ${s.tone}`}>
                     {i + 1}
                   </span>
-                  <h3 className="mt-4 text-lg font-extrabold tracking-tight text-ink">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-ink/70">
-                    {step.body}
-                  </p>
+                  <h3 className="mt-4 text-xl font-semibold">{s.title}</h3>
+                  <p className="mt-2 leading-relaxed text-ink-soft">{s.body}</p>
                 </li>
               ))}
             </ol>
-          </div>
-        </section>
-
-        {/* Who it's for */}
-        <section className="pb-16 lg:pb-24">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="rounded-[2.25rem] bg-ink px-7 py-14 lg:px-14 lg:py-20">
-              <div className="max-w-2xl">
-                <h2 className="text-[1.85rem] font-extrabold leading-[1.15] tracking-[-0.02em] text-white sm:text-4xl">
-                  Built for owners who run the business from the truck.
-                </h2>
-                <div className="mt-6 space-y-4 text-lg leading-relaxed text-white/75">
-                  <p>
-                    Home-service and trades companies with 1 to 20 techs &mdash;
-                    HVAC, plumbing, electrical, landscaping, cleaning. If you
-                    run on a field-service app, take card payments, and buy
-                    leads, this fits.
-                  </p>
-                  <p className="text-base text-white/55">
-                    Our examples use HVAC numbers because specifics are more
-                    useful than vague ones. The pitch is the same whatever you
-                    run.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Placeholder — the real waitlist form replaces this in step 4 */}
-        <section id="waitlist" className="scroll-mt-8 bg-cream-soft px-6 py-20">
-          <div className="mx-auto max-w-md text-center">
-            <h2 className="text-[1.85rem] font-extrabold tracking-[-0.02em] text-ink">
-              Join the waitlist
-            </h2>
-            <p className="mt-3 text-base text-ink-soft">
-              The signup form goes here next.
+            <p className="mt-8 max-w-2xl text-sm text-ink-soft">
+              Always a public place, always the class entrance, always after the session ends. Nobody sees who you are unless
+              you choose to show your first name, and then only to other moms going to the same class.
             </p>
           </div>
         </section>
-      </main>
 
-      <footer className="border-t border-hairline py-10">
-        <div className="mx-auto max-w-6xl space-y-3 px-6 text-sm leading-relaxed text-ink-faint [&>*]:max-w-2xl">
-          <p>
-            <span className="font-bold text-ink">MetricText</span>{" "}
-            is early.
-            We&rsquo;re talking to service-business owners now to figure out what
-            belongs in that morning text and what doesn&rsquo;t. If you&rsquo;ve
-            got opinions, we want to hear them.
-          </p>
-          <p>&copy; {new Date().getFullYear()} MetricText</p>
-        </div>
-      </footer>
+        {/* Neighborhoods */}
+        <section aria-labelledby="hoods-title" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
+          <h2 id="hoods-title" className="text-3xl font-semibold sm:text-4xl">
+            Find your corner
+          </h2>
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {NEIGHBORHOODS.map((n) => (
+              <li key={n.slug}>
+                <Link
+                  href={`/${n.slug}`}
+                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 font-bold text-ink-soft hover:border-ink-faint hover:text-ink"
+                >
+                  {n.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Coming soon + Friday list */}
+        <section aria-labelledby="soon-title" className="mx-auto grid w-full max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2">
+          <div>
+            <h2 id="soon-title" className="text-3xl font-semibold sm:text-4xl">
+              Coming soon
+            </h2>
+            <ul className="mt-6 space-y-3">
+              {SOON.map((s, i) => (
+                <li key={s.title} className="flex gap-4 rounded-[1.5rem] border border-dashed border-line p-5">
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 h-4 w-4 shrink-0 rounded-full"
+                    style={{ background: ["var(--rose)", "var(--lavender)", "var(--sage)"][i] }}
+                  />
+                  <div>
+                    <h3 className="text-lg font-semibold">{s.title}</h3>
+                    <p className="text-ink-soft">{s.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div id="friday" className="rounded-[2rem] bg-lavender-soft p-6 sm:p-8">
+            <h2 className="text-3xl font-semibold">The Friday list</h2>
+            <p className="mt-2 text-ink-soft">
+              A short email of next week's picks for your neighborhood and your baby's age. Be first to get it.
+            </p>
+            <div className="mt-6">
+              <FridaySignup neighborhoods={NEIGHBORHOODS.map(({ slug, name }) => ({ slug, name }))} />
+            </div>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
     </>
   );
 }

@@ -1,0 +1,10 @@
+{
+  "data": {
+    "events": [
+      { "title": "Baby & Me Yoga", "starts": "2026-10-07T10:00:00-07:00", "ends": "2026-10-07T11:20:00-07:00", "venue": { "name": "JCC San Francisco" }, "price": "$30", "link": "https://booking.example/e/1" },
+      { "title": "Baby & Me Yoga", "starts": "2026-10-14T10:00:00-07:00", "ends": "2026-10-14T11:20:00-07:00", "venue": { "name": "JCC San Francisco" }, "price": "$30", "link": "https://booking.example/e/2" },
+      { "title": "Open Gym for Crawlers", "starts": "2026-10-09T09:00:00", "ends": "2026-10-09T10:00:00", "venue": { "name": "JCC San Francisco" }, "price": "Free" },
+      { "title": "Adult Pilates", "starts": "2026-10-09T18:00:00-07:00", "venue": { "name": "JCC San Francisco" } }
+    ]
+  }
+}

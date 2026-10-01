@@ -1,0 +1,29 @@
+{
+  "events": [
+    {
+      "name": { "text": "Mom and Baby Picnic in the Presidio" },
+      "summary": "A relaxed meetup for new moms and babies under one.",
+      "url": "https://www.eventbrite.com/e/123",
+      "start": { "local": "2026-10-10T11:00:00" },
+      "end": { "local": "2026-10-10T12:30:00" },
+      "is_free": true,
+      "venue": { "name": "Presidio Tunnel Tops", "address": { "localized_address_display": "210 Lincoln Blvd, San Francisco" } }
+    },
+    {
+      "name": { "text": "Infant CPR Class" },
+      "summary": "Hands-on infant CPR for new parents.",
+      "url": "https://www.eventbrite.com/e/456",
+      "start": { "local": "2026-10-12T18:00:00" },
+      "end": { "local": "2026-10-12T20:00:00" },
+      "is_free": false,
+      "venue": { "name": "Community Center" },
+      "ticket_availability": { "minimum_ticket_price": { "display": "$45.00" }, "is_sold_out": true }
+    },
+    {
+      "name": { "text": "Wine Tasting Night" },
+      "summary": "Adults only.",
+      "start": { "local": "2026-10-11T19:00:00" },
+      "is_free": false
+    }
+  ]
+}

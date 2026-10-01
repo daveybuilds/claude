@@ -1,0 +1,5 @@
+source,name,type,day,start_time,end_time,location,address,neighborhood,ages,price,price_details,description,url
+jamaroo-kids,Baby Music & Movement,music,Thursday,9:30am,10:15am,JAMaROO Kids,2116 Union St,cow-hollow,6-18 months,$35,"drop-in, first class free",Songs and movement for babies.,https://jamarookids.com
+outer-village,"Parent Circle, ""Newborns""",support,Wed,10:00,11:00,Outer Village,,sunset,0-3 months,Free,,Weekly circle for parents of newborns.,
+,Missing source row,play,Friday,10:00,,,,,,,,,
+outer-village,,support,Mon,,,,,,,,,,
