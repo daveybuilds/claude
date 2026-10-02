@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&family=Instrument+Serif:ital@1&display=swap">
 <style>
-/* Layout: white canvas; hero = big headline + "where & how old" picker beside a sunrise doorway; tappable neighborhood ticker; then what's on this week. */
+/* Layout: white canvas; hero = big headline + "where & how old" picker beside a colour-lit doorway; tappable neighborhood ticker; then what's on this week. */
 :root {
   --bg: #ffffff;
   --bg-2: #fafafa;
@@ -112,16 +112,16 @@ h1 .serif { font-size: 1.08em; letter-spacing: -.03em; }
 .stack i { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--bg); margin-left: -8px; }
 .stack i:first-child { margin-left: 0; }
 
-/* The sunrise doorway */
+/* The colour-lit doorway */
 .stage { position: relative; aspect-ratio: 5 / 6; max-width: 100%; }
-.door { position: absolute; inset: 0 9%; border-radius: 999px 999px 28px 28px; overflow: hidden; isolation: isolate; box-shadow: var(--shadow);
-  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 60%, var(--bg-2) 100%); }
+.door { position: absolute; inset: 0 9%; border-radius: 999px 999px 28px 28px; overflow: hidden; isolation: isolate; box-shadow: var(--shadow); background: var(--bg-2); }
+.door .mesh { position: absolute; inset: -20%; filter: blur(42px); animation: swirl 16s ease-in-out infinite alternate; }
+.door .mesh span { position: absolute; border-radius: 50%; }
+.door .mesh span:nth-child(1) { width: 70%; height: 55%; left: 0; top: 8%; background: var(--rose); }
+.door .mesh span:nth-child(2) { width: 65%; height: 55%; right: 0; top: 30%; background: var(--lilac); }
+.door .mesh span:nth-child(3) { width: 80%; height: 45%; left: 10%; bottom: 0; background: var(--sage); }
+@keyframes swirl { to { transform: rotate(14deg) scale(1.08); } }
 .door::after { content: ""; position: absolute; inset: 12px; border-radius: inherit; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .55); pointer-events: none; }
-.sun { position: absolute; left: 50%; top: 18%; width: 34%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle at 50% 45%, var(--rose) 0%, color-mix(in srgb, var(--rose) 60%, transparent) 60%, transparent 72%); }
-.fog { position: absolute; left: -15%; right: -15%; height: 9%; border-radius: 999px; background: var(--card); opacity: .55; filter: blur(12px); animation: drift 18s ease-in-out infinite alternate; }
-.fog.one { top: 38%; } .fog.two { top: 49%; opacity: .4; animation-duration: 24s; animation-direction: alternate-reverse; }
-@keyframes drift { from { transform: translateX(-7%); } to { transform: translateX(7%); } }
-.hills { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 58%; }
 
 .app { position: absolute; z-index: 2; left: 50%; top: 56%; width: min(300px, 82%); transform: translate(-50%, -50%); background: var(--card); border-radius: 22px; padding: 18px; box-shadow: var(--shadow); }
 .app-top { display: flex; justify-content: space-between; align-items: center; }
@@ -330,15 +330,7 @@ footer p { max-width: 44em; }
       </div>
 
       <div class="stage">
-        <div class="door" aria-hidden="true">
-          <div class="sun"></div>
-          <div class="fog one"></div><div class="fog two"></div>
-          <svg class="hills" viewBox="0 0 400 250" preserveAspectRatio="none">
-            <path d="M0 120 C60 70 110 80 160 112 S260 60 310 92 380 96 400 84 V250 H0Z" fill="var(--lilac)" opacity=".55"/>
-            <path d="M0 160 C70 120 130 140 190 160 S300 118 400 140 V250 H0Z" fill="var(--sage)" opacity=".8"/>
-            <path d="M0 205 C90 180 170 196 240 206 S350 186 400 196 V250 H0Z" fill="var(--rose)" opacity=".75"/>
-          </svg>
-        </div>
+        <div class="door" aria-hidden="true"><div class="mesh"><span></span><span></span><span></span></div></div>
         <div class="toast one" aria-hidden="true"><i style="background:#7a5fd6">A</i>Ana is going too</div>
         <div class="app" id="hero-card" data-count="3">
           <div class="app-top"><span class="chip rose">Story time</span><span class="mono">TUE 10:30</span></div>
