@@ -303,7 +303,7 @@ footer p { max-width: 44em; }
   <div class="wrap">
     <section class="hero" aria-labelledby="hero-title">
       <div>
-        <span class="badge"><b>This week</b>15 baby classes across 14 SF neighborhoods</span>
+        <span class="badge"><b>This week</b>9 baby classes across 5 neighborhoods</span>
         <h1 id="hero-title">Little plans for <span class="serif grad">long days.</span></h1>
         <p class="lede">The best baby classes in your corner of San Francisco, all in one place. Something to look forward to, a reason to get out the door, and other moms to share the morning with.</p>
 
@@ -454,11 +454,8 @@ footer p { max-width: 44em; }
   // Live = we have listings there today. The rest show as "soon".
   var HOODS = [
     ["", "All areas", true], ["marina", "Marina", true], ["cow-hollow", "Cow Hollow", true],
-    ["laurel-heights", "Laurel & Presidio Heights", true], ["richmond", "Richmond", true], ["sunset", "Sunset", true],
-    ["western-addition", "NoPa & Western Addition", true], ["haight", "Haight & Cole Valley", true],
-    ["north-beach", "North Beach", true], ["noe-valley", "Noe Valley", true], ["castro", "Castro", true],
-    ["mission-bay", "Mission Bay", true], ["mission", "Mission", true], ["bernal", "Bernal Heights", true], ["potrero", "Potrero Hill", true],
-    ["pacific-heights", "Pacific Heights", false], ["hayes-valley", "Hayes Valley", false], ["presidio", "Presidio", false], ["dogpatch", "Dogpatch", false]
+    ["laurel-heights", "Laurel & Presidio Heights", true], ["western-addition", "NoPa & Western Addition", true],
+    ["richmond", "Richmond", true]
   ];
   var live = {}; HOODS.forEach(function (h) { live[h[0]] = h[2]; });
   var hoodName = {}; HOODS.forEach(function (h) { hoodName[h[0]] = h[1]; });
@@ -469,29 +466,18 @@ footer p { max-width: 44em; }
   var CLASSES = [
     { d: 1, name: "Storytime for Families", day: "Mon 5", time: "10:15–10:45", place: "Western Addition Branch Library, 1550 Scott St", hood: "western-addition", bands: [0, 6, 12], count: 0, src: "sfpl", chips: [STORY, FREE] },
     { d: 1.1, name: "Storytime for Babies", day: "Mon 5", time: "11:00–12:00", place: "Richmond Branch Library", hood: "richmond", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
-    { d: 2, name: "Storytime for Babies (English & Español)", day: "Tue 6", time: "10:15–10:45", place: "North Beach Branch Library, 850 Columbus Ave", hood: "north-beach", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE, ["plain", "Bilingual"]] },
     { d: 2.1, name: "Family Storytime", day: "Tue 6", time: "10:30–11:00", place: "Marina Branch Library, 1890 Chestnut St", hood: "marina", bands: [0, 6, 12], count: 3, chips: [STORY, FREE] },
     { d: 2.2, name: "Storytime for Toddlers", day: "Tue 6", time: "11:00–11:30", place: "Western Addition Branch Library, 1550 Scott St", hood: "western-addition", bands: [12], count: 0, src: "sfpl", chips: [STORY, FREE, ["plain", "16m–2y"]] },
     { d: 2.3, name: "Storytime for Babies", day: "Tue 6", time: "11:45–12:15", place: "Western Addition Branch Library, 1550 Scott St", hood: "western-addition", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
     { d: 3, name: "Baby & Me Yoga", day: "Wed 7", time: "10:00–11:20", place: "JCC San Francisco, 3200 California St", hood: "laurel-heights", bands: [0], count: 5, chips: [["lilac", "Yoga"], ["plain", "6 wks – pre-crawling"], ["plain", "$180 / 6 wks"]] },
-    { d: 3.1, name: "Storytime for Babies", day: "Wed 7", time: "11:00–11:30", place: "Eureka Valley Branch Library, 1 Jose Sarria Ct", hood: "castro", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
     { d: 4, name: "Storytime for Babies", day: "Thu 8", time: "10:15–10:45", place: "Presidio Branch Library, 3150 Sacramento St", hood: "laurel-heights", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
-    { d: 4.1, name: "Storytime for Babies", day: "Thu 8", time: "10:15–10:45", place: "Noe Valley Branch Library, 451 Jersey St", hood: "noe-valley", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
-    { d: 4.2, name: "Storytime for Babies", day: "Thu 8", time: "10:30–11:15", place: "Parkside Branch Library", hood: "sunset", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
-    { d: 4.3, name: "Storytime for Babies", day: "Thu 8", time: "10:30–11:15", place: "Mission Bay Branch Library", hood: "mission-bay", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
     { d: 5, name: "Storytime for Families", day: "Fri 9", time: "1:15–1:45pm", place: "Golden Gate Valley Branch Library, 1801 Green St", hood: "cow-hollow", bands: [0, 6, 12], count: 0, src: "sfpl", chips: [STORY, FREE, ["plain", "Tickets from 1pm"]] },
-    { d: 6, name: "Storytime for Babies", day: "Sat 10", time: "10:30–11:30", place: "Anza Branch Library, 550 37th Ave", hood: "richmond", bands: [0, 6], count: 0, chips: [STORY, FREE] },
-    { d: 6.1, name: "Storytime for Babies", day: "Sat 10", time: "11:00–12:00", place: "Park Branch Library, 1833 Page St", hood: "haight", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] }
+    { d: 6, name: "Storytime for Babies", day: "Sat 10", time: "10:30–11:30", place: "Anza Branch Library, 550 37th Ave", hood: "richmond", bands: [0, 6], count: 0, chips: [STORY, FREE] }
   ];
   var TBC = [
     { name: "JAMaROO Kids music & movement", place: "2116 Union St", hood: "cow-hollow", url: "https://jamarookids.com", chips: [["lilac", "Music"]] },
     { name: "Kinspace Mama + Babe groups", place: "2154 Union St", hood: "cow-hollow", url: "https://kinspacefamily.com/mama-babe", chips: [["sage", "New-mom circle"], ["plain", "Paid"]] },
-    { name: "The Pad Studios mom & baby classes", place: "1694 Union St", hood: "cow-hollow", url: "https://thepadstudios.com", chips: [["plain", "Fitness"]] },
-    { name: "Bernal Heights library storytimes", place: "Bernal Heights Branch Library, 500 Cortland Ave", hood: "bernal", url: "https://sfpl.org/locations/bernal-heights", chips: [STORY, FREE] },
-    { name: "Ortega library storytimes", place: "Ortega Branch Library, 3223 Ortega St", hood: "sunset", url: "https://sfpl.org/locations/ortega", chips: [STORY, FREE] },
-    { name: "Sunset library storytimes", place: "Sunset Branch Library, 1305 18th Ave", hood: "sunset", url: "https://sfpl.org/locations/sunset", chips: [STORY, FREE] },
-    { name: "Potrero library storytimes", place: "Potrero Branch Library, 1616 20th St", hood: "potrero", url: "https://sfpl.org/locations/potrero", chips: [STORY, FREE] },
-    { name: "Mission library storytimes", place: "Mission Branch Library", hood: "mission", url: "https://sfpl.org/locations/mission", chips: [STORY, FREE] }
+    { name: "The Pad Studios mom & baby classes", place: "1694 Union St", hood: "cow-hollow", url: "https://thepadstudios.com", chips: [["plain", "Fitness"]] }
   ];
 
   var state = { hood: "", band: "" };
@@ -527,7 +513,7 @@ footer p { max-width: 44em; }
     heroHood.insertAdjacentHTML("beforeend", '<option value="' + h[0] + '">' + h[1] + "</option>");
     row.insertAdjacentHTML("beforeend", '<button type="button" data-hood="' + h[0] + '" aria-pressed="false">' + h[1] + "</button>");
   });
-  [0, 1].forEach(function (copy) {
+  [0, 1, 2, 3].forEach(function (copy) {
     HOODS.slice(1).forEach(function (h) {
       track.insertAdjacentHTML("beforeend", '<button type="button" data-hood="' + h[0] + '"' + (h[2] ? "" : ' class="soon"') + (copy ? ' tabindex="-1" aria-hidden="true"' : "") + ">" + h[1] + (h[2] ? "" : " <small>soon</small>") + "</button>");
     });
