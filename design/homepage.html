@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&family=Instrument+Serif:ital@1&display=swap">
 <style>
-/* Layout: white canvas; hero = big headline + "where & how old" picker beside a colour-lit doorway; tappable neighborhood ticker; then what's on this week. */
+/* Layout: white canvas; hero = big headline + one "see what's on" button beside a colour-lit doorway; tappable neighborhood ticker; then what's on this week. */
 :root {
   --bg: #ffffff;
   --bg-2: #fafafa;
@@ -95,17 +95,16 @@ h1 { margin-top: 24px; font-size: clamp(44px, 7vw, 92px); line-height: .98; lett
 h1 .serif { font-size: 1.08em; letter-spacing: -.03em; }
 .lede { margin-top: 22px; max-width: 31em; font-size: 18.5px; color: var(--ink-2); }
 
-/* Hero picker: "Show me classes in [Marina] for [6–12m]" */
-.picker { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px; border-radius: 22px; background: var(--card); box-shadow: var(--shadow); max-width: 620px; }
-.pick { flex: 1 1 130px; min-width: 0; display: grid; padding: 6px 14px; border-radius: 16px; }
+/* Dropdowns (list filter bar) */
+.pick { flex: 1 1 130px; min-width: 0; display: grid; padding: 6px 14px; border-radius: 14px; }
 .pick:hover { background: var(--bg-2); }
 .pick label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-3); }
 .pick select { width: 100%; min-width: 0; appearance: none; -webkit-appearance: none; border: 0; background: transparent; color: var(--ink); font: 600 16px var(--sans); padding: 2px 18px 2px 0; cursor: pointer;
   background-image: linear-gradient(45deg, transparent 50%, var(--ink-3) 50%), linear-gradient(135deg, var(--ink-3) 50%, transparent 50%); background-position: right 6px top 55%, right 1px top 55%; background-size: 5px 5px; background-repeat: no-repeat; }
 .pick select:focus { outline: none; }
 .pick:focus-within { box-shadow: inset 0 0 0 2px var(--lilac-ink); }
-.picker .sep { width: 1px; align-self: stretch; margin-block: 8px; background: var(--line); }
-.picker .btn { flex: 0 0 auto; height: 52px; border-radius: 16px; padding: 0 22px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.cta .btn { height: 54px; padding: 0 24px; font-size: 16px; }
 .under { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 22px; font-size: 14px; color: var(--ink-2); }
 .under button { background: none; border: 0; padding: 0; font: 500 14px var(--sans); color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; cursor: pointer; }
 .stack { display: flex; }
@@ -194,13 +193,13 @@ h1 .serif { font-size: 1.08em; letter-spacing: -.03em; }
 
 /* What's on */
 .list { border-radius: 24px; box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
-.list-head { display: grid; gap: 12px; padding: 14px 18px; background: var(--bg-2); border-bottom: 1px solid var(--line); }
-.hood-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-.hood-row::-webkit-scrollbar { display: none; }
-.hood-row button, .seg button { flex: 0 0 auto; border: 0; cursor: pointer; font: 500 13.5px var(--sans); height: 34px; padding: 0 13px; border-radius: 999px; background: var(--bg); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); }
-.hood-row button[aria-pressed="true"], .seg button[aria-pressed="true"] { background: var(--btn); color: var(--btn-ink); box-shadow: none; }
-.filters2 { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
-.seg { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.list-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding: 14px 18px; background: var(--bg-2); border-bottom: 1px solid var(--line); }
+.filterbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding: 5px; border-radius: 18px; background: var(--card); box-shadow: var(--shadow); flex: 1 1 520px; max-width: 760px; }
+.filterbar .pick { flex: 1 1 150px; }
+.filterbar .sep { width: 1px; align-self: stretch; margin-block: 8px; background: var(--line); }
+.price { display: inline-flex; gap: 2px; padding: 4px; margin-left: auto; border-radius: 14px; background: var(--bg-2); }
+.price button { border: 0; cursor: pointer; font: 500 14px var(--sans); height: 38px; padding: 0 16px; border-radius: 11px; background: transparent; color: var(--ink-2); }
+.price button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: var(--shadow); }
 .item { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 24px; align-items: center; padding: 22px 18px; border-bottom: 1px solid var(--line); transition: background .2s ease; }
 .item:hover { background: var(--bg-2); }
 .when { font-family: var(--mono); font-size: 13px; color: var(--ink-2); line-height: 1.4; }
@@ -266,10 +265,10 @@ footer p { max-width: 44em; }
 }
 @media (max-width: 600px) {
   .links a.hide-s { display: none; }
-  .picker { border-radius: 20px; }
-  .picker .sep { display: none; }
-  .picker .btn { flex: 1 1 100%; }
   .pick { flex-basis: 100%; }
+  .filterbar .sep { display: none; }
+  .price { margin-left: 0; width: 100%; }
+  .price button { flex: 1; }
   .item { grid-template-columns: 1fr; gap: 12px; padding: 20px 16px; }
   .when { display: flex; align-items: baseline; gap: 10px; }
   .when b { display: inline; font-size: 20px; }
@@ -307,28 +306,14 @@ footer p { max-width: 44em; }
         <h1 id="hero-title">Little plans for <span class="serif grad">long days.</span></h1>
         <p class="lede">The best baby classes in your corner of San Francisco, all in one place. Something to look forward to, a reason to get out the door, and other moms to share the morning with.</p>
 
-        <form class="picker" id="hero-picker" aria-label="Find classes">
-          <div class="pick">
-            <label for="hero-hood">Where</label>
-            <select id="hero-hood"></select>
-          </div>
-          <span class="sep" aria-hidden="true"></span>
-          <div class="pick">
-            <label for="hero-age">Baby's age</label>
-            <select id="hero-age">
-              <option value="">Any age</option>
-              <option value="0">Newborn – 6 months</option>
-              <option value="6">6 – 12 months</option>
-              <option value="12">1 – 2 years</option>
-            </select>
-          </div>
-          <button class="btn btn-go" type="submit">Show me what's on <span class="arr" aria-hidden="true">→</span></button>
-        </form>
+        <div class="cta">
+          <a class="btn btn-go" href="#week">See what's on this week <span class="arr" aria-hidden="true">↓</span></a>
+          <button class="btn btn-line" type="button" id="share">Send to a mom friend</button>
+        </div>
 
         <div class="under">
           <span class="stack" aria-hidden="true"><i style="background:var(--rose)"></i><i style="background:var(--lilac)"></i><i style="background:var(--sage)"></i></span>
           <span>14 Marina moms are going to something this week.</span>
-          <button type="button" id="share">Send to a mom friend</button>
         </div>
       </div>
 
@@ -383,16 +368,29 @@ footer p { max-width: 44em; }
     </div>
     <div class="list">
       <div class="list-head">
-        <div class="hood-row" id="hood-row" role="group" aria-label="Neighborhood"></div>
-        <div class="filters2">
-          <div class="seg" id="age-seg" role="group" aria-label="Baby's age">
-            <button type="button" data-band="" aria-pressed="true">Any age</button>
-            <button type="button" data-band="0" aria-pressed="false">Newborn–6m</button>
-            <button type="button" data-band="6" aria-pressed="false">6–12m</button>
-            <button type="button" data-band="12" aria-pressed="false">1–2y</button>
+        <div class="filterbar" role="group" aria-label="Filter classes">
+          <div class="pick">
+            <label for="f-hood">Where</label>
+            <select id="f-hood"></select>
           </div>
-          <span class="mono" id="result-count" aria-live="polite"></span>
+          <span class="sep" aria-hidden="true"></span>
+          <div class="pick">
+            <label for="f-age">Baby's age</label>
+            <select id="f-age">
+              <option value="">Any age</option>
+              <option value="0">Newborn – 6 months</option>
+              <option value="6">6 – 12 months</option>
+              <option value="12">1 – 2 years</option>
+            </select>
+          </div>
+          <span class="sep" aria-hidden="true"></span>
+          <div class="price" role="group" aria-label="Price">
+            <button type="button" data-price="" aria-pressed="true">All</button>
+            <button type="button" data-price="free" aria-pressed="false">Free</button>
+            <button type="button" data-price="paid" aria-pressed="false">Paid</button>
+          </div>
         </div>
+        <span class="mono" id="result-count" aria-live="polite"></span>
       </div>
       <div id="results"></div>
       <div class="list-foot"><span>Class times change. Tap through to the provider before you head out.</span><span>Updated Oct 1</span></div>
@@ -469,18 +467,18 @@ footer p { max-width: 44em; }
     { d: 2.1, name: "Family Storytime", day: "Tue 6", time: "10:30–11:00", place: "Marina Branch Library, 1890 Chestnut St", hood: "marina", bands: [0, 6, 12], count: 3, chips: [STORY, FREE] },
     { d: 2.2, name: "Storytime for Toddlers", day: "Tue 6", time: "11:00–11:30", place: "Western Addition Branch Library, 1550 Scott St", hood: "western-addition", bands: [12], count: 0, src: "sfpl", chips: [STORY, FREE, ["plain", "16m–2y"]] },
     { d: 2.3, name: "Storytime for Babies", day: "Tue 6", time: "11:45–12:15", place: "Western Addition Branch Library, 1550 Scott St", hood: "western-addition", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
-    { d: 3, name: "Baby & Me Yoga", day: "Wed 7", time: "10:00–11:20", place: "JCC San Francisco, 3200 California St", hood: "laurel-heights", bands: [0], count: 5, chips: [["lilac", "Yoga"], ["plain", "6 wks – pre-crawling"], ["plain", "$180 / 6 wks"]] },
+    { d: 3, name: "Baby & Me Yoga", day: "Wed 7", time: "10:00–11:20", place: "JCC San Francisco, 3200 California St", hood: "laurel-heights", bands: [0], count: 5, paid: true, chips: [["lilac", "Yoga"], ["plain", "6 wks – pre-crawling"], ["plain", "$180 / 6 wks"]] },
     { d: 4, name: "Storytime for Babies", day: "Thu 8", time: "10:15–10:45", place: "Presidio Branch Library, 3150 Sacramento St", hood: "laurel-heights", bands: [0, 6], count: 0, src: "sfpl", chips: [STORY, FREE] },
     { d: 5, name: "Storytime for Families", day: "Fri 9", time: "1:15–1:45pm", place: "Golden Gate Valley Branch Library, 1801 Green St", hood: "cow-hollow", bands: [0, 6, 12], count: 0, src: "sfpl", chips: [STORY, FREE, ["plain", "Tickets from 1pm"]] },
     { d: 6, name: "Storytime for Babies", day: "Sat 10", time: "10:30–11:30", place: "Anza Branch Library, 550 37th Ave", hood: "richmond", bands: [0, 6], count: 0, chips: [STORY, FREE] }
   ];
   var TBC = [
     { name: "JAMaROO Kids music & movement", place: "2116 Union St", hood: "cow-hollow", url: "https://jamarookids.com", chips: [["lilac", "Music"]] },
-    { name: "Kinspace Mama + Babe groups", place: "2154 Union St", hood: "cow-hollow", url: "https://kinspacefamily.com/mama-babe", chips: [["sage", "New-mom circle"], ["plain", "Paid"]] },
+    { name: "Kinspace Mama + Babe groups", place: "2154 Union St", hood: "cow-hollow", paid: true, url: "https://kinspacefamily.com/mama-babe", chips: [["sage", "New-mom circle"], ["plain", "Paid"]] },
     { name: "The Pad Studios mom & baby classes", place: "1694 Union St", hood: "cow-hollow", url: "https://thepadstudios.com", chips: [["plain", "Fitness"]] }
   ];
 
-  var state = { hood: "", band: "" };
+  var state = { hood: "", band: "", price: "" };
 
   function hiText(count, on) {
     if (on) { var o = count - 1; return o <= 0 ? "You're the first" : "You and " + o + " other " + (o === 1 ? "mom" : "moms"); }
@@ -505,43 +503,37 @@ footer p { max-width: 44em; }
   var hero = document.getElementById("hero-card");
   wireHi(hero.querySelector(".hi-btn"), hero.querySelector(".count"), { count: 3, on: false });
 
-  // Neighborhood controls
-  var heroHood = document.getElementById("hero-hood");
-  var row = document.getElementById("hood-row");
+  // Filters live on the list itself; tapping the banner also picks the area.
+  var fHood = document.getElementById("f-hood");
+  var fAge = document.getElementById("f-age");
   var track = document.getElementById("track");
-  HOODS.filter(function (h) { return h[2]; }).forEach(function (h) {
-    heroHood.insertAdjacentHTML("beforeend", '<option value="' + h[0] + '">' + h[1] + "</option>");
-    row.insertAdjacentHTML("beforeend", '<button type="button" data-hood="' + h[0] + '" aria-pressed="false">' + h[1] + "</button>");
-  });
+  HOODS.forEach(function (h) { fHood.insertAdjacentHTML("beforeend", '<option value="' + h[0] + '">' + h[1] + "</option>"); });
   [0, 1, 2, 3].forEach(function (copy) {
     HOODS.slice(1).forEach(function (h) {
-      track.insertAdjacentHTML("beforeend", '<button type="button" data-hood="' + h[0] + '"' + (h[2] ? "" : ' class="soon"') + (copy ? ' tabindex="-1" aria-hidden="true"' : "") + ">" + h[1] + (h[2] ? "" : " <small>soon</small>") + "</button>");
+      track.insertAdjacentHTML("beforeend", '<button type="button" data-hood="' + h[0] + '"' + (copy ? ' tabindex="-1" aria-hidden="true"' : "") + ">" + h[1] + "</button>");
     });
   });
 
-  function setHood(h) { state.hood = h; heroHood.value = h; render(); }
-  function setBand(b) { state.band = b; document.getElementById("hero-age").value = b; render(); }
   function goToList() { document.getElementById("week").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); }
+  function reset() { state.hood = ""; state.band = ""; state.price = ""; render(); }
+  function priceOk(c) { return !state.price || (state.price === "paid") === !!c.paid; }
 
-  row.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) setHood(b.dataset.hood); });
-  track.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) { setHood(b.dataset.hood); goToList(); } });
-  document.getElementById("age-seg").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) setBand(b.dataset.band); });
-  document.getElementById("hero-picker").addEventListener("submit", function (e) {
-    e.preventDefault();
-    state.hood = heroHood.value; state.band = document.getElementById("hero-age").value;
-    render(); goToList();
-  });
+  fHood.addEventListener("change", function () { state.hood = fHood.value; render(); });
+  fAge.addEventListener("change", function () { state.band = fAge.value; render(); });
+  document.querySelector(".price").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) { state.price = b.dataset.price; render(); } });
+  track.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) { state.hood = b.dataset.hood; render(); goToList(); } });
 
   function render() {
-    row.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.hood === state.hood)); });
+    fHood.value = state.hood; fAge.value = state.band;
+    document.querySelectorAll(".price button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.price === state.price)); });
     track.querySelectorAll("button").forEach(function (b) { b.classList.toggle("on", b.dataset.hood === state.hood); });
-    document.querySelectorAll("#age-seg button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.band === state.band)); });
     document.getElementById("week-where").textContent = state.hood ? "in " + hoodName[state.hood] : "near you";
 
     var shown = CLASSES.slice().sort(function (a, b) { return a.d - b.d; }).filter(function (c) {
-      return (!state.hood || c.hood === state.hood) && (state.band === "" || c.bands.indexOf(Number(state.band)) !== -1);
+      return (!state.hood || c.hood === state.hood) && (state.band === "" || c.bands.indexOf(Number(state.band)) !== -1) && priceOk(c);
     });
-    var tbc = TBC.filter(function (c) { return !state.hood || c.hood === state.hood; });
+    // Unconfirmed studios only show under a price filter when we know their price.
+    var tbc = TBC.filter(function (c) { return (!state.hood || c.hood === state.hood) && (!state.price || (state.price === "paid" && c.paid)); });
     var out = document.getElementById("results");
     out.innerHTML = "";
 
@@ -564,9 +556,9 @@ footer p { max-width: 44em; }
       var where = state.hood ? hoodName[state.hood] : "San Francisco";
       var msg = state.hood && !live[state.hood]
         ? "<b>We're not in " + where + " yet, but we're on our way.</b>We're starting in the Marina and growing one neighborhood at a time. <a href=\"#friday\">Join the Friday list</a> and we'll tell you the moment " + where + " is live, or "
-        : "<b>Nothing for that age in " + where + " this week.</b>Try another age, or ";
+        : "<b>Nothing matches in " + where + " this week.</b>Try another age or price, or ";
       out.innerHTML = '<div class="empty">' + msg + '<button type="button" class="check" id="all-sf" style="background:none;border:0;cursor:pointer;color:inherit;font:inherit;padding:0">see everything that\'s on</button>.</div>';
-      document.getElementById("all-sf").addEventListener("click", function () { setHood(""); setBand(""); });
+      document.getElementById("all-sf").addEventListener("click", reset);
     }
     var n = shown.length;
     document.getElementById("result-count").textContent = n + (n === 1 ? " class" : " classes") + " this week";
